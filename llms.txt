@@ -1,0 +1,14 @@
+# Typography Studio Pro (fontstudio.site)
+> The ultimate aesthetic fonts and battle symbols generator for modern devices.
+
+## About the Tool
+Typography Studio Pro is a free, no-registration web application that converts standard text into luxury Unicode fonts, gaming symbols, and aesthetic text. It is highly optimized for seamless rendering on flagship devices including the iPhone 16 Pro Max and Samsung S25 Ultra.
+
+## Core Features
+- Aesthetic fonts for Instagram bios
+- Fancy text generator for TikTok and Threads
+- PUBG and Free Fire name generator with battle symbols (⚔, 亗, ♛)
+- WhatsApp and Telegram stylish text converter
+
+## Accessibility & Markets
+The tool provides universal Unicode support globally, with specialized technical configurations targeting the US and German markets (Bavaria, Munich, Berlin), ensuring digital creators worldwide can access premium, glitch-free typography.
