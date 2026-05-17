@@ -118,6 +118,64 @@
         .faq-item p { color: var(--muted); font-size: 0.95rem; }
         .credit { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; }
         .credit a { color: var(--primary); text-decoration: none; font-weight: 800; letter-spacing: 1px; }
+        
+        /* Floating Share Button Styling */
+        .share-fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 56px;
+            height: 56px;
+            background: var(--ig-gradient);
+            border-radius: 50%;
+            box-shadow: 0 8px 20px rgba(220, 39, 67, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .share-fab svg { fill: white; width: 24px; height: 24px; }
+        .share-fab:hover { transform: scale(1.1) rotate(10deg); }
+        
+        .share-menu {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 12px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            z-index: 9998;
+            width: 200px;
+            animation: popUp 0.3s ease-out forwards;
+        }
+        @keyframes popUp {
+            from { opacity: 0; transform: translateY(15px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .share-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .share-item:hover { background: rgba(129, 140, 248, 0.1); color: var(--primary); }
+        .share-item i { font-style: normal; font-size: 1.1rem; }
+        .active-menu { display: flex; }
+
         @media (max-width: 768px) { .seo-container { padding: 2rem; } .seo-header h1 { font-size: 1.8rem; } }
     </style>
 </head>
@@ -154,6 +212,17 @@
         <div class="grid" id="output"></div>
     </section>
 </main>
+
+<div class="share-fab" id="fabBtn" title="Share Typography Studio Pro">
+    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+</div>
+
+<div class="share-menu" id="shareMenu">
+    <a href="#" class="share-item" onclick="handleShare('whatsapp')"><i>🟢</i> WhatsApp</a>
+    <a href="#" class="share-item" onclick="handleShare('telegram')"><i>🔵</i> Telegram</a>
+    <a href="#" class="share-item" onclick="handleShare('facebook')"><i>🔷</i> Facebook</a>
+    <a href="#" class="share-item" onclick="handleShare('copy')"><i>🔗</i> Copy Link</a>
+</div>
 
 <div class="mega-seo">
     <div class="seo-container">
@@ -215,8 +284,8 @@
         { name: "Royal Gothic",  map: "𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
         { name: "VIP Cursive",   map: "𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
         { name: "Minimal Thin",  map: "𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
-        { name: "Bold Italic",   map: "𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢ന𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
-        { name: "Typewriter",    map: "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿" },
+        { name: "Bold Italic",   map: "𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊網𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢ന𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
+        { name: "Typewriter",    map: "𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖搬𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿" },
         { name: "Small Caps",    map: "ABCDEFGHIJKLMNOPQRSTUVWXYZᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
         { name: "Circled",       map: "ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓿❶❷❸❹❺❻❼❽❾" }
     ];
@@ -227,6 +296,33 @@
     const bar     = document.getElementById('toolBar');
     const output  = document.getElementById('output');
     const bio     = document.getElementById('liveBio');
+    const fab     = document.getElementById('fabBtn');
+    const menu    = document.getElementById('shareMenu');
+
+    // Share logic
+    fab.onclick = (e) => {
+        e.stopPropagation();
+        menu.classList.toggle('active-menu');
+    };
+
+    document.onclick = () => menu.classList.remove('active-menu');
+
+    function handleShare(platform) {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent("✨ Create professional Aesthetic Fonts & Bio names for your profile here: ");
+        let finalUrl = "";
+
+        switch(platform) {
+            case 'whatsapp': finalUrl = `https://api.whatsapp.com/send?text=${text}${url}`; break;
+            case 'telegram': finalUrl = `https://t.me/share/url?url=${url}&text=${text}`; break;
+            case 'facebook': finalUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
+            case 'copy': 
+                navigator.clipboard.writeText(window.location.href);
+                alert("Link copied to clipboard! 🚀");
+                return;
+        }
+        window.open(finalUrl, '_blank');
+    }
 
     syms.forEach(s => {
         const b = document.createElement('button');
