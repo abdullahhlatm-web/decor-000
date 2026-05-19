@@ -12,6 +12,15 @@
       gtag('config', 'G-68HCDQ9WXF');
     </script>
 
+    <!-- Theme Initialization to prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+
     <title>Aesthetic Fonts & Bio Generator | Typography Studio Pro</title>
     <meta name="description" content="Professional fancy text generator. Create stylish names, aesthetic bios, and unique gaming symbols for your social media profiles globally.">
     
@@ -52,23 +61,57 @@
     </script>
 
     <style>
+        /* Light Theme (Default) */
         :root {
             --primary: #818cf8;
             --ig-gradient: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             --glimmer: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            --bg: #f9fafb;
+            --surface: #ffffff;
+            --text: #111827;
+            --border: #e5e7eb;
+            --muted: #6b7280;
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root { --bg: #09090b; --surface: #121214; --text: #f8fafc; --border: #27272a; --muted: #a1a1aa; }
-        }
-        @media (prefers-color-scheme: light) {
-            :root { --bg: #f9fafb; --surface: #ffffff; --text: #111827; --border: #e5e7eb; --muted: #6b7280; }
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg: #09090b; 
+            --surface: #121214; 
+            --text: #f8fafc; 
+            --border: #27272a; 
+            --muted: #a1a1aa;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; transition: 0.5s; overflow-x: hidden; line-height: 1.7; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; transition: background-color 0.5s, color 0.5s; overflow-x: hidden; line-height: 1.7; }
 
-        nav { background: var(--surface); padding: 1rem 5%; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 5px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px); }
+        nav { background: var(--surface); padding: 1rem 5%; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 5px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(12px); transition: background-color 0.5s, border-color 0.5s; }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 12px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .theme-toggle svg { width: 22px; height: 22px; fill: currentColor; transition: 0.3s; }
+
         .logo-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-text { font-size: 1.5rem; font-weight: 900; background: var(--ig-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
         .badge { font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: 1.5px; }
@@ -98,7 +141,7 @@
         .f-val { font-size: 1.45rem; word-break: break-all; }
 
         .mega-seo { max-width: 1300px; margin: 4rem auto; padding: 0 2rem; }
-        .seo-container { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 4rem; }
+        .seo-container { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 4rem; transition: background-color 0.5s, border-color 0.5s; }
         .seo-header { text-align: center; margin-bottom: 3rem; }
         .seo-header h1 { font-size: 2.2rem; color: var(--text); margin-bottom: 1rem; font-weight: 900; letter-spacing: -1px; }
         .seo-header p { font-size: 1.1rem; color: var(--muted); max-width: 800px; margin: 0 auto; }
@@ -110,14 +153,13 @@
         .seo-article p { color: var(--muted); margin-bottom: 1.2rem; text-align: justify; }
         .seo-article ul { margin-left: 1.5rem; color: var(--muted); margin-bottom: 1.5rem; }
         .seo-article li { margin-bottom: 0.5rem; }
-        .faq-section { background: var(--bg); border-radius: 16px; padding: 3rem; border: 1px solid var(--border); }
+        .faq-section { background: var(--bg); border-radius: 16px; padding: 3rem; border: 1px solid var(--border); transition: background-color 0.5s, border-color 0.5s; }
         .faq-section h2 { text-align: center; margin-bottom: 2rem; font-size: 1.8rem; }
         .faq-item { margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
         .faq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .faq-item h4 { font-size: 1.1rem; color: var(--text); margin-bottom: 0.5rem; }
         .faq-item p { color: var(--muted); font-size: 0.95rem; }
         
-        /* Updated Credit Area */
         .credit { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); margin-top: 3rem; }
         .credit a { color: var(--primary); text-decoration: none; font-weight: 800; letter-spacing: 1px; }
         .seo-links { margin-top: 15px; display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; font-size: 0.85rem; }
@@ -125,7 +167,6 @@
         .seo-links a:hover { color: var(--primary); }
         .seo-links span { color: var(--border); }
 
-        /* Floating Share Button Styling */
         .share-fab {
             position: fixed;
             bottom: 25px;
@@ -182,7 +223,12 @@
         .share-item i { font-style: normal; font-size: 1.1rem; }
         .active-menu { display: flex; }
 
-        @media (max-width: 768px) { .seo-container { padding: 2rem; } .seo-header h1 { font-size: 1.8rem; } }
+        @media (max-width: 768px) { 
+            .seo-container { padding: 2rem; } 
+            .seo-header h1 { font-size: 1.8rem; }
+            .theme-toggle { right: 15px; width: 36px; height: 36px; }
+            .theme-toggle svg { width: 18px; height: 18px; }
+        }
     </style>
 </head>
 <body>
@@ -192,6 +238,10 @@
         <div class="logo-text">Typography Studio Pro</div>
     </a>
     <div class="badge">Free Professional Service • Global SEO Optimized</div>
+    
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">
+        <svg id="themeIcon" viewBox="0 0 24 24"></svg>
+    </button>
 </nav>
 
 <main class="workspace">
@@ -284,6 +334,34 @@
 </div>
 
 <script>
+    // Theme logic integration
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    const sunSvg = 'M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z';
+    const moonSvg = 'M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z';
+
+    function updateThemeIcon() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        themeIcon.innerHTML = `<path d="${isDark ? sunSvg : moonSvg}"/>`;
+    }
+    
+    updateThemeIcon();
+
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        updateThemeIcon();
+    });
+
+
+    // Original logic remains untouched
     const syms = [
         "🅥", "✓", "💎", "✧", "✦", "✪", "★", "✮", "☑", "𐌡", 
         "♛", "⚔", "⚡", "☠", "♠", "🦅", "🐺", "◬", "⚚", "𓆩", "𓆪", 
@@ -295,7 +373,6 @@
 
     const latin = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    // تم إصلاح مصفوفات الخطوط وإزالة الرموز الخاطئة منها 
     const styles = [
         { name: "Luxury Serif",  map: "𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
         { name: "Royal Gothic",  map: "𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗" },
@@ -316,7 +393,6 @@
     const fab     = document.getElementById('fabBtn');
     const menu    = document.getElementById('shareMenu');
 
-    // Share logic
     fab.onclick = (e) => {
         e.stopPropagation();
         menu.classList.toggle('active-menu');
